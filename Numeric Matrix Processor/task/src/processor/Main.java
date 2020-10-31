@@ -1,48 +1,57 @@
 package processor;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
+    private final static Scanner scanner = new Scanner(System.in);
 
-        int firstMatrixSizeN = scanner.nextInt();
-        int firstMatrixSizeM = scanner.nextInt();
+    public static int[][] readMatrixFromStandartInput(){
+        int N = scanner.nextInt();
+        int M = scanner.nextInt();
 
-        int[][] firstMatrix = new int[firstMatrixSizeN][firstMatrixSizeM];
+        int[][] matrix = new int[N][M];
 
-        for (int i = 0; i < firstMatrixSizeN; ++i) {
-            for (int j  = 0; j < firstMatrixSizeM ; ++j) {
-                firstMatrix[i][j] = scanner.nextInt();
+        for (int i = 0; i < N; ++i) {
+            for (int j  = 0; j < M ; ++j) {
+                matrix[i][j] = scanner.nextInt();
             }
         }
 
-        int secondMatrixSizeN = scanner.nextInt();
-        int secondMatrixSizeM = scanner.nextInt();
+        return matrix;
+    }
 
-        int[][] secondMatrix = new int[secondMatrixSizeN][secondMatrixSizeM];
+    public static int[][] matrixMultiplication() throws ArithmeticException {
 
-        for (int i = 0; i < secondMatrixSizeN; ++i) {
-            for (int j  = 0; j < secondMatrixSizeM ; ++j) {
-                secondMatrix[i][j] = scanner.nextInt();
-            }
-        }
+        int[][] firstMatrix = readMatrixFromStandartInput();
+        int[][] secondMatrix = readMatrixFromStandartInput();
 
-        if (firstMatrixSizeN == secondMatrixSizeN &&
-            firstMatrixSizeM == secondMatrixSizeM) {
-            for (int i = 0; i < firstMatrixSizeN; ++i) {
+        if (firstMatrix.length == secondMatrix.length &&
+                firstMatrix[0].length == secondMatrix[0].length) {
 
-                for (int j  = 0; j < firstMatrixSizeM; ++j) {
-                    System.out.print(firstMatrix[i][j] + secondMatrix[i][j] + " ");
+            int N = firstMatrix.length;
+            int M = firstMatrix[0].length;
+            int[][] result = new int[N][M];
+
+            for (int i = 0; i < N; ++i) {
+                for (int j  = 0; j < M; ++j) {
+                    result[i][j] = firstMatrix[i][j] + secondMatrix[i][j];
                 }
-
-                System.out.println();
             }
-        } else {
-            System.out.println("ERROR");
-        }
 
-        scanner.close();
+            return result;
+
+        } else {
+            throw new ArithmeticException("ERROR");
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println(Arrays.toString(matrixMultiplication()));
+        } catch (ArithmeticException error) {
+            System.out.println(error.getMessage());
+        }
     }
 }
