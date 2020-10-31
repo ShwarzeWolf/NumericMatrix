@@ -21,7 +21,7 @@ public class Main {
         return matrix;
     }
 
-    public static int[][] matrixMultiplication(int[][] firstMatrix, int[][] secondMatrix) throws ArithmeticException {
+    public static int[][] matrixMultiplication(final int[][] firstMatrix, final int[][] secondMatrix) throws ArithmeticException {
 
         if (firstMatrix.length == secondMatrix.length &&
                 firstMatrix[0].length == secondMatrix[0].length) {
@@ -43,7 +43,7 @@ public class Main {
         }
     }
 
-    public static void printMatrix(int[][] matrix) {
+    public static void printMatrix(final int[][] matrix) {
         for (int i = 0; i < matrix.length; ++i) {
 
             for (int j = 0; j < matrix[0].length; ++j) {
@@ -52,6 +52,18 @@ public class Main {
 
             System.out.println();
         }
+    }
+
+    public static int[][] multiplyMatrixByScalar(final int[][] matrix, int scalar) {
+        int[][] result = matrix.clone();
+
+        for (int i = 0; i < result.length; ++i) {
+            for (int j = 0; j < result[0].length; ++j) {
+                result[i][j] *= scalar;
+            }
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
@@ -67,6 +79,9 @@ public class Main {
 
          */
 
+        int[][] matrix = readMatrixFromStandardInput();
+        int scalar = scanner.nextInt();
 
+        printMatrix(multiplyMatrixByScalar(matrix, scalar));
     }
 }
